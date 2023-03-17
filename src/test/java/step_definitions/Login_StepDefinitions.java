@@ -5,10 +5,16 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.UserInboxPage;
+import utilities.BrowserTools;
 import utilities.ConfigReader;
 import utilities.Driver;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class Login_StepDefinitions {
 
@@ -48,4 +54,8 @@ public class Login_StepDefinitions {
         Assert.assertTrue(loginPage.pWrongLoginPassword.isDisplayed());
     }
 
+    @Then("user should get - \\(Please fill out this field.) warning message")
+    public void userShouldGetPleaseFillOutThisFieldWarningMessage() {
+        Assert.assertEquals("true", loginPage.inputLogin.getAttribute("required"));
+    }
 }
