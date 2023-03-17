@@ -23,12 +23,12 @@ public class Login_StepDefinitions {
 
     }
 
-    @When("user enters valid username {string}")
+    @When("user enters username {string}")
     public void userEntersValidUsername(String arg0) {
         loginPage.inputLogin.sendKeys(arg0);
     }
 
-    @And("user enters valid password {string}")
+    @And("user enters password {string}")
     public void userEntersValidPassword(String arg0) {
         loginPage.inputPassword.sendKeys(arg0);
     }
@@ -41,6 +41,11 @@ public class Login_StepDefinitions {
     @Then("user is on the Inbox page")
     public void userIsOnTheInboxPage() {
         Assert.assertTrue(userInboxPage.userInbox.isDisplayed());
+    }
+
+    @Then("user should see Wrong login or password message")
+    public void userShouldSeeWrongLoginPasswordMessage() {
+        Assert.assertTrue(loginPage.pWrongLoginPassword.isDisplayed());
     }
 
 }

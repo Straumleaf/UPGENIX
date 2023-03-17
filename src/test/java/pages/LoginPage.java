@@ -26,5 +26,9 @@ public class LoginPage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement buttonLog;
 
+    // Wrong login/password message indication
+    @FindBy(xpath = "//p")
+    public WebElement pWrongLoginPassword;
+
 
 }

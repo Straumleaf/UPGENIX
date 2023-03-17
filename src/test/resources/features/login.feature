@@ -1,14 +1,16 @@
+@wip
 Feature: UPGENIX app login feature
   User story:
   Users can log in with valid credentials (We have 5 types of users
-  but will test only 2 user: posmanager75, salesmanager75)
+  but will test only 2 user: posmanager75, salesmanager75
 
   Background: for the scenario for this feature file, user is expected to be on the login page
     Given user is on the UPGENIX login page
 
+  @wip
   Scenario Outline:  Login functionality verification
-    When user enters valid username "<username>"
-    And user enters valid password "<password>"
+    When user enters username "<username>"
+    And user enters password "<password>"
     And user clicks on the Login button
     Then user is on the Inbox page
 
@@ -18,3 +20,31 @@ Feature: UPGENIX app login feature
       | salesmanager57@info.com | salesmanager |
       | posmanager75@info.com   | posmanager   |
       | posmanager57@info.com   | posmanager   |
+
+  @wip
+  Scenario Outline: "Wrong login/password" message should be displayed for valid username and invalid password
+    When user enters username "<username>"
+    And user enters password "<password>"
+    And user clicks on the Login button
+    Then user should see Wrong login or password message
+
+    Examples:
+      | username                | password     |
+      | salesmanager75@info.com | Salesmanager |
+      | salesmanager57@info.com | salesManager |
+      | posmanager75@info.com   | Posmanager   |
+      | posmanager57@info.com   | posManager   |
+
+  @wip
+  Scenario Outline: "Wrong login/password" message should be displayed for invalid username and valid password
+    When user enters username "<username>"
+    And user enters password "<password>"
+    And user clicks on the Login button
+    Then user should see Wrong login or password message
+
+    Examples:
+      | username                  | password     |
+      | wrongName@info.com        | salesmanager |
+      | salesmanager250@info.com  | salesmanager |
+      | posmanager100500@info.com | posmanager   |
+      | 1409809184@info.com       | posmanager   |

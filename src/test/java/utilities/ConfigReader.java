@@ -11,13 +11,8 @@ public class ConfigReader {
     static{
         try {
 
-            // opening configuration file
             FileInputStream file = new FileInputStream("configuration.properties");
-
-            // loading values from file to Properties object
             properties.load(file);
-
-            // close the configuration file
             file.close();
 
         } catch (IOException e) {
