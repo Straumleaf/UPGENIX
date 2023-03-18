@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
@@ -57,5 +58,21 @@ public class Login_StepDefinitions {
     @Then("user should get - \\(Please fill out this field.) warning message")
     public void userShouldGetPleaseFillOutThisFieldWarningMessage() {
         Assert.assertEquals("true", loginPage.inputLogin.getAttribute("required"));
+    }
+
+    @When("user {string} enters password {string}")
+    public void userEntersPassword(String login, String password) {
+        loginPage.inputLogin.sendKeys(login);
+        loginPage.inputPassword.sendKeys(password);
+    }
+
+    @Then("user should see the password in bullet signs by default")
+    public void userShouldSeeThePasswordInBulletSignsByDefault() {
+        Assert.assertEquals("password", loginPage.inputPassword.getAttribute("type"));
+    }
+
+    @And("press \\(Enter) key")
+    public void pressEnterKey() {
+        loginPage.inputPassword.sendKeys(Keys.ENTER);
     }
 }

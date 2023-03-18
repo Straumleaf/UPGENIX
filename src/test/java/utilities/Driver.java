@@ -1,8 +1,8 @@
 package utilities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 
@@ -19,19 +19,25 @@ public class Driver {
 
             // reading type of browser from config properties
             String browserType = ConfigReader.getProperty("browser");
+            String driverPath = ConfigReader.getProperty("driver_path");
+            String browserOptions = ConfigReader.getProperty("browser_options");
 
-            // choosing the wright driver type as per config properties
+            // choosing the right driver type as per config settings
             switch (browserType){
 
                 case "chrome":
-                    WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver());
+                    if (!driverPath.equals("")) System.setProperty("webdriver.chrome.driver", driverPath);
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    //chromeOptions.addArguments(browserOptions);
+                    //chromeOptions.setBinary("C:/Program Files/ChromeDriver/");
+                    chromeOptions.addArguments("--headless");
+                    driverPool.set(new ChromeDriver(chromeOptions));
                     break;
 
                 case "edge":
+                    if (!driverPath.equals("")) System.setProperty("webdriver.edge.driver", driverPath);
                     EdgeOptions edgeOptions = new EdgeOptions();
-                    edgeOptions.addArguments("-inprivate");
-                    WebDriverManager.edgedriver().setup();
+                    edgeOptions.addArguments(browserOptions);
                     driverPool.set(new EdgeDriver(edgeOptions));
                     break;
 
@@ -39,7 +45,7 @@ public class Driver {
                     throw new RuntimeException("There is no such driver as " + browserType + " or config file error!");
             }
 
-            driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driverPool.get().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         }
 
         return driverPool.get();
@@ -47,10 +53,12 @@ public class Driver {
 
     // this method make sure our driver value is always null after using quit() method
     public static void closeDriver(){
+
         if(driverPool.get() != null) {
             driverPool.get().quit();
             driverPool.remove();
         }
+
     }
 
 }
