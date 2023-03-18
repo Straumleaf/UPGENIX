@@ -28,9 +28,7 @@ public class Driver {
                 case "chrome":
                     if (!driverPath.equals("")) System.setProperty("webdriver.chrome.driver", driverPath);
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    //chromeOptions.addArguments(browserOptions);
-                    //chromeOptions.setBinary("C:/Program Files/ChromeDriver/");
-                    chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments(browserOptions);
                     driverPool.set(new ChromeDriver(chromeOptions));
                     break;
 
