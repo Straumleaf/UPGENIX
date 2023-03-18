@@ -28,14 +28,14 @@ public class Driver {
                 case "chrome":
                     if (!driverPath.equals("")) System.setProperty("webdriver.chrome.driver", driverPath);
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.addArguments(browserOptions);
+                    if (!browserOptions.equals("")) chromeOptions.addArguments(browserOptions);
                     driverPool.set(new ChromeDriver(chromeOptions));
                     break;
 
                 case "edge":
                     if (!driverPath.equals("")) System.setProperty("webdriver.edge.driver", driverPath);
                     EdgeOptions edgeOptions = new EdgeOptions();
-                    edgeOptions.addArguments(browserOptions);
+                    if (!browserOptions.equals("")) edgeOptions.addArguments(browserOptions);
                     driverPool.set(new EdgeDriver(edgeOptions));
                     break;
 
