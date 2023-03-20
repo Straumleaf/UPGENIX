@@ -1,11 +1,15 @@
 package utilities;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
@@ -19,25 +23,44 @@ public class Driver {
 
             // reading type of browser from config properties
             String browserType = ConfigReader.getProperty("browser");
-            String driverPath = ConfigReader.getProperty("driver_path");
-            String browserOptions = ConfigReader.getProperty("browser_options");
+            String driverLocalPath = ConfigReader.getProperty("local_driver_path");
+            String driverRemotePath = ConfigReader.getProperty("remote_driver_path");
 
             // choosing the right driver type as per config settings
             switch (browserType){
 
                 case "chrome":
-                    if (!driverPath.equals("")) System.setProperty("webdriver.chrome.driver", driverPath);
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    if (!browserOptions.equals("")) chromeOptions.addArguments(browserOptions);
-                    driverPool.set(new ChromeDriver(chromeOptions));
+                    if (!driverLocalPath.equals("")) System.setProperty("webdriver.chrome.driver", driverLocalPath);
+                    driverPool.set(new ChromeDriver(new ChromeOptions().addArguments("--incognito --remote-allow-origins=*")));
+                    System.out.println("Successfully start Chrome Web Driver in incognito mode ...");
+                    break;
+
+                case "chrome-headless":
+                    if (!driverLocalPath.equals("")) System.setProperty("webdriver.chrome.driver", driverLocalPath);
+                    driverPool.set(new ChromeDriver(new ChromeOptions().addArguments("--headless --incognito --remote-allow-origins=*")));
+                    System.out.println("Successfully start Chrome Web Driver in headless mode ...");
                     break;
 
                 case "edge":
-                    if (!driverPath.equals("")) System.setProperty("webdriver.edge.driver", driverPath);
-                    EdgeOptions edgeOptions = new EdgeOptions();
-                    if (!browserOptions.equals("")) edgeOptions.addArguments(browserOptions);
-                    driverPool.set(new EdgeDriver(edgeOptions));
+                    if (!driverLocalPath.equals("")) System.setProperty("webdriver.edge.driver", driverLocalPath);
+                    driverPool.set(new EdgeDriver(new EdgeOptions().addArguments("--inprivate")));
+                    System.out.println("Successfully start Edge Web Driver in private mode ...");
                     break;
+
+                case "edge-headless":
+                    if (!driverLocalPath.equals("")) System.setProperty("webdriver.edge.driver", driverLocalPath);
+                    driverPool.set(new EdgeDriver(new EdgeOptions().addArguments("--inprivate --headless")));
+                    System.out.println("Successfully start Edge Web Driver in headless mode ...");
+                    break;
+
+                case "remote_chrome":
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.setCapability("platform", Platform.ANY);
+                    try {
+                        driverPool.set(new RemoteWebDriver(new URL(driverRemotePath),chromeOptions));
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
 
                 default:
                     throw new RuntimeException("There is no such driver as " + browserType + " or config file error!");
@@ -55,6 +78,7 @@ public class Driver {
         if(driverPool.get() != null) {
             driverPool.get().quit();
             driverPool.remove();
+            System.out.println("Web Driver successfully stopped.");
         }
 
     }
