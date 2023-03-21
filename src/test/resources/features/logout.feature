@@ -5,7 +5,7 @@ Feature: UPGENIX app logout feature
   Background: for the scenario for this feature file, user is expected to be on the user home page (Inbox)
     Given user is on the UPGENIX Inbox page
 
-  @wip
+  @done
   Scenario: User can log out and ends up in login page
     Then user clicks on username and choose Log out option
     Then user is redirected to Login page
