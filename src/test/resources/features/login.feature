@@ -7,7 +7,7 @@ Feature: UPGENIX app login feature
   Background: for the scenario for this feature file, user is expected to be on the login page
     Given user is on the UPGENIX login page
 
-  @done @UPG10-250
+  @UPG10-250 @login
   Scenario Outline:  Login functionality verification
     When user enters username "<username>"
     And user enters password "<password>"
@@ -21,7 +21,7 @@ Feature: UPGENIX app login feature
       | posmanager75@info.com   | posmanager   |
       | posmanager57@info.com   | posmanager   |
 
-  @done @UPG10-251
+  @UPG10-251 @login
   Scenario Outline: "Wrong login/password" message should be displayed for
                     valid username and invalid password
     When user enters username "<username>"
@@ -36,7 +36,7 @@ Feature: UPGENIX app login feature
       | posmanager75@info.com   | Posmanager   |
       | posmanager57@info.com   | posManager   |
 
-  @done @UPG10-252
+  @UPG10-252 @login
   Scenario Outline: "Wrong login/password" message should be displayed for
                     invalid username and valid password
     When user enters username "<username>"
@@ -51,7 +51,7 @@ Feature: UPGENIX app login feature
       | posmanager100500@info.com | posmanager   |
       | 1409809184@info.com       | posmanager   |
 
-  @done @@UPG10-253
+  @@UPG10-253 @login
   Scenario Outline: "Please fill out this field" notification message should be displayed
                     in absence of user
     When user enters username "<username>"
@@ -64,7 +64,7 @@ Feature: UPGENIX app login feature
       |          | salesmanager |
       |          | posmanager   |
 
-  @done @UPG10-254
+  @UPG10-254 @login
   Scenario Outline: "Please fill out this field" notification message should be displayed
                     in absence of password
     When user enters username "<username>"
@@ -77,12 +77,12 @@ Feature: UPGENIX app login feature
       | salesmanager75@info.com |          |
       | posmanager75@info.com   |          |
 
-  @done @UPG10-255
+  @UPG10-255 @login
   Scenario: User should see bullet signs instead of actual password characters
     When user "posmanager75@info.com" enters password "posmanager"
     Then user should see the password in bullet signs by default
 
-  @done @UPG10-257
+  @UPG10-257 @login
   Scenario: Verify if the ‘Enter’ key of the keyboard is working correctly on the login page.
     When user "posmanager75@info.com" enters password "posmanager"
     And press (Enter) key

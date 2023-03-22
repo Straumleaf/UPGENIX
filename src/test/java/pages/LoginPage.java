@@ -30,5 +30,13 @@ public class LoginPage {
     @FindBy(xpath = "//p")
     public WebElement pWrongLoginPassword;
 
+    // warning message that session has been expired
+    @FindBy(xpath = "//*[text() = '\n    \n    Your Odoo session expired. Please refresh the current web page.\n']")
+    public WebElement yourOdooSessionExpired;
+
+    // top right drop list element with or without username
+    @FindBy(xpath = "//*[@id='top_menu']")
+    public WebElement liDropDown;
+
 
 }

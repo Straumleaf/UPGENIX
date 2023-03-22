@@ -1,13 +1,17 @@
 package step_definitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import pages.LoginPage;
 import pages.UserInboxPage;
 import utilities.ConfigReader;
 import utilities.Driver;
+
+import javax.swing.*;
 
 public class Logout_StepDefinitions {
 
@@ -25,15 +29,38 @@ public class Logout_StepDefinitions {
 
     }
 
-
     @Then("user clicks on username and choose Log out option")
     public void userClicksOnUsernameAndChooseLogOutOption() {
         userInboxPage.spanUserName.click();
         userInboxPage.linkLogout.click();
     }
 
-    @Then("user is redirected to Login page")
-    public void userIsRedirectedToLoginPage() {
-        Assert.assertTrue(Driver.getDriver().getTitle().equals("Login | Best solution for startups"));
+    @Then("user is on the Login page and see {string} option in top right conner")
+    public void userIsRedirectedToLoginPage(String text) {
+        Assert.assertTrue(loginPage.liDropDown.getText().equals(text));
+    }
+
+
+    @And("user clicks the browser step back button")
+    public void userClicksTheBrowserStepBackButton() {
+        Driver.getDriver().navigate().back();
+    }
+
+    @Then("user should see the message {string}")
+    public void userShouldSeeTheMessage(String warning) {
+        Assert.assertTrue(userInboxPage.yourOdooSessionExpired.getText().contains(warning));
+
+    }
+
+    @And("user closes the active web tab")
+    public void userClosesTheActiveWebTab() {
+        Actions actions = new Actions(Driver.getDriver());
+        actions.keyDown(Keys.CONTROL).sendKeys("w").keyUp(Keys.CONTROL);
+    }
+
+    @And("user open home page again")
+    public void userOpenHomePageAgain() {
+        String url = ConfigReader.getProperty("webLoginPage");
+        Driver.getDriver().get(url);
     }
 }
