@@ -61,7 +61,8 @@ public class Driver {
 
                 case "chrome-remote":
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.setCapability("chrome", Platform.ANY);
+                    // removed due to deprecation in Selenium 4.0 and higher
+                    // chromeOptions.setCapability("platform", Platform.ANY);
                     try {
                         driverPool.set(new RemoteWebDriver(new URL(driverRemotePath),chromeOptions));
                     } catch (MalformedURLException e) {

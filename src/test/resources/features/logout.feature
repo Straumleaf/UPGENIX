@@ -1,3 +1,4 @@
+
 Feature: UPGENIX app logout feature
   User story:
   Users should be able to log out

@@ -15,7 +15,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "step_definitions",
         dryRun = false,
-        tags = "@smoke"
+        tags = "@smoke",
+        publish = false
 )
 
 public class TestRunner {}
