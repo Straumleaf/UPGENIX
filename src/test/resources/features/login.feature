@@ -77,7 +77,7 @@ Feature: UPGENIX app login feature
       | salesmanager75@info.com |          |
       | posmanager75@info.com   |          |
 
-  @UPG10-255 @login
+  @UPG10-255 @login @smoke
   Scenario: User should see bullet signs instead of actual password characters
     When user "posmanager75@info.com" enters password "posmanager"
     Then user should see the password in bullet signs by default
