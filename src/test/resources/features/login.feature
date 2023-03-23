@@ -7,7 +7,7 @@ Feature: UPGENIX app login feature
   Background: for the scenario for this feature file, user is expected to be on the login page
     Given user is on the UPGENIX login page
 
-  @UPG10-250 @login
+  @UPG10-250 @login @smoke
   Scenario Outline:  Login functionality verification
     When user enters username "<username>"
     And user enters password "<password>"
@@ -21,7 +21,7 @@ Feature: UPGENIX app login feature
       | posmanager75@info.com   | posmanager   |
       | posmanager57@info.com   | posmanager   |
 
-  @UPG10-251 @login
+  @UPG10-251 @login @smoke
   Scenario Outline: "Wrong login/password" message should be displayed for
                     valid username and invalid password
     When user enters username "<username>"
@@ -36,7 +36,7 @@ Feature: UPGENIX app login feature
       | posmanager75@info.com   | Posmanager   |
       | posmanager57@info.com   | posManager   |
 
-  @UPG10-252 @login
+  @UPG10-252 @login @smoke
   Scenario Outline: "Wrong login/password" message should be displayed for
                     invalid username and valid password
     When user enters username "<username>"
@@ -51,7 +51,7 @@ Feature: UPGENIX app login feature
       | posmanager100500@info.com | posmanager   |
       | 1409809184@info.com       | posmanager   |
 
-  @@UPG10-253 @login
+  @@UPG10-253 @login @smoke
   Scenario Outline: "Please fill out this field" notification message should be displayed
                     in absence of user
     When user enters username "<username>"

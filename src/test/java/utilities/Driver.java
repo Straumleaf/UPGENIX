@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
@@ -25,6 +26,11 @@ public class Driver {
             String browserType = ConfigReader.getProperty("browser");
             String driverLocalPath = ConfigReader.getProperty("local_driver_path");
             String driverRemotePath = ConfigReader.getProperty("remote_driver_path");
+
+            if(Objects.nonNull(System.getProperty("BROWSER"))) {
+                browserType = System.getProperty("BROWSER");
+                System.out.println("Chosen system default browser.");
+            }
 
             // choosing the right driver type as per config settings
             switch (browserType){
@@ -53,14 +59,16 @@ public class Driver {
                     System.out.println("Successfully start Edge Web Driver in headless mode ...");
                     break;
 
-                case "remote_chrome":
+                case "chrome-remote":
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.setCapability("platform", Platform.ANY);
+                    chromeOptions.setCapability("chrome", Platform.ANY);
                     try {
                         driverPool.set(new RemoteWebDriver(new URL(driverRemotePath),chromeOptions));
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
+                        throw new RuntimeException("Failed to create remote session.");
                     }
+                    break;
 
                 default:
                     throw new RuntimeException("There is no such driver as " + browserType + " or config file error!");
