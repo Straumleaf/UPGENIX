@@ -69,6 +69,7 @@ public class Driver {
                         e.printStackTrace();
                         throw new RuntimeException("Failed to create remote session.");
                     }
+                    System.out.println("Successfully start Chrome remote Web Driver ...");
                     break;
 
                 default:
