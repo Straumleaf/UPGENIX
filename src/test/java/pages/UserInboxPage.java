@@ -22,8 +22,8 @@ public class UserInboxPage {
     @FindBy(xpath = "//a[@data-menu='logout']")
     public WebElement linkLogout;
 
-    @FindBy(xpath = "//*[text() = '\n    \n    Your Odoo session expired. Please refresh the current web page.\n']")
-    public WebElement yourOdooSessionExpired;
+    @FindBy(xpath = "//div[@class='modal-dialog']")
+    public WebElement yourSessionExpired;
 
     @FindBy(css = "li[class='dropdown']")
     public WebElement liDropDown;

@@ -11,8 +11,6 @@ import pages.UserInboxPage;
 import utilities.ConfigReader;
 import utilities.Driver;
 
-import javax.swing.*;
-
 public class Logout_StepDefinitions {
 
     LoginPage loginPage = new LoginPage();
@@ -48,7 +46,7 @@ public class Logout_StepDefinitions {
 
     @Then("user should see the message {string}")
     public void userShouldSeeTheMessage(String warning) {
-        Assert.assertTrue(userInboxPage.yourOdooSessionExpired.getText().contains(warning));
+        Assert.assertTrue(userInboxPage.yourSessionExpired.getText().contains(warning));
 
     }
 
